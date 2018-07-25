@@ -1,0 +1,15 @@
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\bin\Debug\RS_Seis.exe.config
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\bin\Debug\RS_Seis.exe
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\bin\Debug\RS_Seis.pdb
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis.csprojAssemblyReference.cache
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\MainWindow.g.cs
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\App.g.cs
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis_MarkupCompile.cache
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis_MarkupCompile.lref
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\MainWindow.baml
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis.g.resources
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis.Properties.Resources.resources
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis.csproj.GenerateResource.cache
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis.csproj.CoreCompileInputs.cache
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis.exe
+C:\Users\TraOne\source\repos\RS_Seis\RS_Seis\obj\Debug\RS_Seis.pdb
