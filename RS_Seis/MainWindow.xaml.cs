@@ -23,10 +23,13 @@ namespace RS_Seis
     /// </summary>
     public partial class MainWindow : Window
     {
+        //StreamReader objInput = null;
+        string contents;
+
         public MainWindow()
         {
             InitializeComponent();
-            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            //Application.Current.MainWindow.WindowState = WindowState.Maximized;
         }
 
         private void btn1_Click(object sender, RoutedEventArgs e)
@@ -44,43 +47,76 @@ namespace RS_Seis
             if (fileDialog.ShowDialog() == true)
             {
                 String filePath = fileDialog.FileName;
-                String dataValue = null;
-                int counter = 0;
+                
+                int i = 0, countRow = 0;
 
                 path1.Text = filePath;
 
                 StreamReader objInput = new StreamReader(filePath, System.Text.Encoding.Default);
-                string contents = objInput.ReadToEnd().Trim();
-                string[] split = System.Text.RegularExpressions.Regex.Split(contents, "\\s+", RegexOptions.None);
+                contents = objInput.ReadToEnd().Trim();
+                string[] split = System.Text.RegularExpressions.Regex.Split(contents, "\\r+", RegexOptions.None);
                 foreach (string s in split)
                 {
-                    counter++;
-                    if(counter == 4)
-                    {
-                        dataValue = dataValue + s + "\n";
-                        Console.WriteLine(s);
-                    }else if (counter == 24)
-                    {
-                        counter = 0;
-                    }
-                    else
-                    {
-                        //default 
-                    }
                     
+                    //if (i == 4)
+                    //{
+                    //    dataValue = dataValue + s + "\n";
+                    //    Console.WriteLine(s);
+                    //}
+                    //else if (i == 24)
+                    //{
+                    //    i = 0;
+                    //}
+                    //else
+                    //{
+                    //    //default 
+                    //}
+
+                    if ( i < 1)
+                    {
+                        string[] space = System.Text.RegularExpressions.Regex.Split(s, "\\s+", RegexOptions.None);
+                        foreach (string p in space)
+                        {
+                            countRow++;
+                            combo1.Items.Add(countRow);
+                            combo1.SelectedIndex = 0;
+                        }
+                    }
+
+                    i++;
                 }
 
-                box1.Text = dataValue;
-
-
-
+                
             }
         }
 
-        private void box1_TextChanged(object sender, TextChangedEventArgs e)
+        private void combo1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            textBox1.ScrollBars = ScrollBars.Both;
-            textBox1.WordWrap = false;
+            int selectedIndex = combo1.SelectedIndex;
+            Console.WriteLine(selectedIndex);
+            int i = 0;
+            String dataValue = null;
+            string[] split = System.Text.RegularExpressions.Regex.Split(contents, "\\s+", RegexOptions.None);
+            foreach (string s in split)
+            {
+                if (i == selectedIndex)
+                {
+                    dataValue = dataValue + s + "\n";
+                    Console.WriteLine(s);
+                }
+                else if (i == 24)
+                {
+                    i = 0;
+                }
+                else
+                {
+                    //default 
+                }
+                i++;
+               
+            }
+
+            box1.Text = dataValue;
         }
     }
 }

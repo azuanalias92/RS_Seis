@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="btn1" Click="btn1_Click" Content="Button" HorizontalAlignment="Left" Margin="650,50,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="path1" HorizontalAlignment="Left" Height="23" Margin="50,50,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="550"/>
-        <TextBox x:Name="box1" HorizontalAlignment="Left" Height="250" Margin="50,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="675" IsReadOnly="True" TextChanged="box1_TextChanged" />
-
+        <Button x:Name="btn1" Click="btn1_Click" Content="Upload" HorizontalAlignment="Left" Margin="650,50,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="path1" HorizontalAlignment="Left" Height="23" Margin="50,50,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="400"/>
+        <TextBox x:Name="box1" HorizontalAlignment="Left" Height="250" Margin="50,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="675" IsReadOnly="True" VerticalScrollBarVisibility="Visible"/>
+        <ComboBox x:Name="combo1"  HorizontalAlignment="Left" Margin="500,50,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="combo1_SelectionChanged"/>
     </Grid>
 </Window>
