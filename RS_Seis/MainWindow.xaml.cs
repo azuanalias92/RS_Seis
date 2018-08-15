@@ -1,20 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace RS_Seis
 {
@@ -24,12 +14,18 @@ namespace RS_Seis
     public partial class MainWindow : Window
     {
         //StreamReader objInput = null;
-        string contents;
+        string contents, filePath, dataValue, dataPrint;
+        int maxValue;
+
+
 
         public MainWindow()
         {
             InitializeComponent();
+            this.Title = "RS_Seis";
             //Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            export.IsEnabled = false;
+            combo1.IsEnabled = false;
         }
 
         private void btn1_Click(object sender, RoutedEventArgs e)
@@ -40,14 +36,14 @@ namespace RS_Seis
 
         private void OpenDialog()
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog fileDialog = new Microsoft.Win32.OpenFileDialog();
             fileDialog.DefaultExt = ".dat"; // Required file extension 
             fileDialog.Filter = "DAT file (.dat)|*.dat"; // Optional file extensions
 
             if (fileDialog.ShowDialog() == true)
             {
-                String filePath = fileDialog.FileName;
-                
+                filePath = fileDialog.FileName;
+
                 int i = 0, countRow = 0;
 
                 path1.Text = filePath;
@@ -57,66 +53,91 @@ namespace RS_Seis
                 string[] split = System.Text.RegularExpressions.Regex.Split(contents, "\\r+", RegexOptions.None);
                 foreach (string s in split)
                 {
-                    
-                    //if (i == 4)
-                    //{
-                    //    dataValue = dataValue + s + "\n";
-                    //    Console.WriteLine(s);
-                    //}
-                    //else if (i == 24)
-                    //{
-                    //    i = 0;
-                    //}
-                    //else
-                    //{
-                    //    //default 
-                    //}
-
-                    if ( i < 1)
+                    if (i < 1)
                     {
                         string[] space = System.Text.RegularExpressions.Regex.Split(s, "\\s+", RegexOptions.None);
                         foreach (string p in space)
                         {
                             countRow++;
                             combo1.Items.Add(countRow);
-                            combo1.SelectedIndex = 0;
+                            //combo1.SelectedIndex = 1;
+                            maxValue = countRow;
                         }
                     }
 
                     i++;
                 }
 
-                
+                combo1.IsEnabled = true;
             }
         }
 
         private void combo1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int selectedIndex = combo1.SelectedIndex;
-            Console.WriteLine(selectedIndex);
+
             int i = 0;
-            String dataValue = null;
-            string[] split = System.Text.RegularExpressions.Regex.Split(contents, "\\s+", RegexOptions.None);
-            foreach (string s in split)
+            dataValue = null;
+            int localMaxValue = maxValue - 1;
+            string[] splits = System.Text.RegularExpressions.Regex.Split(contents, "\\s+", RegexOptions.None);
+            foreach (string s in splits)
             {
+
+                //Console.WriteLine(selectedIndex + "/" + i + "/" + localMaxValue) ;
                 if (i == selectedIndex)
                 {
-                    dataValue = dataValue + s + "\n";
-                    Console.WriteLine(s);
+
+                    dataValue = dataValue + s + "\r";
+                    dataPrint = dataPrint + s + Environment.NewLine;
+                    i++;
+
+                    //last value
+                    if (selectedIndex == localMaxValue)
+                    {
+                        i = 0;
+                        //Console.WriteLine("skip");
+                    }
                 }
-                else if (i == 24)
+                else if (i == localMaxValue)
                 {
                     i = 0;
+                    //Console.WriteLine("skip");
                 }
                 else
                 {
-                    //default 
+                    //default
+                    i++;
                 }
-                i++;
-               
+
+
             }
 
             box1.Text = dataValue;
+            export.IsEnabled = true;
+        }
+
+        private void export_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Document"; // Default file name
+            dlg.DefaultExt = ".bln";
+            dlg.Filter = "Text documents (.bln)|*.bln";
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                
+                // Save document
+                string filename = dlg.FileName;
+                //Console.WriteLine(filename);
+
+                System.IO.File.WriteAllText(filename, dataPrint);
+                System.Windows.MessageBox.Show("Succesfully exported");
+            }
         }
     }
 }
